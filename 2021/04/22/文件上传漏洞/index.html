@@ -15,18 +15,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>小zou的博客</title>
+  <title>文件上传漏洞 | 小zou的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="myReader  *{ margin: 0; padding: 0; }  body{ background: #eee; overflow-x : hidden; overflow-y : hidden; }  #container{ width: 600px; height: 400px; background: #eee; position: relative; } .tag{">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小zou的博客">
-<meta property="og:url" content="http://example.com/assets/demo/my_news_reader/index.html">
+  <meta name="description" content="​        文件上传漏洞是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。常见场景是web服务器允许用户上传图片或者普通文本文件保存，而用户绕过上传机制上传恶意代码并执行从而控制服务器。显然这种漏洞是getshell最快最直接的方法之一，需要说明的是上传文件操作本身是没有问题的，问题在于文件上传到服务器后，服务器怎么处理和解释文件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件上传漏洞">
+<meta property="og:url" content="http://example.com/2021/04/22/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/index.html">
 <meta property="og:site_name" content="小zou的博客">
-<meta property="og:description" content="myReader  *{ margin: 0; padding: 0; }  body{ background: #eee; overflow-x : hidden; overflow-y : hidden; }  #container{ width: 600px; height: 400px; background: #eee; position: relative; } .tag{">
+<meta property="og:description" content="​        文件上传漏洞是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。常见场景是web服务器允许用户上传图片或者普通文本文件保存，而用户绕过上传机制上传恶意代码并执行从而控制服务器。显然这种漏洞是getshell最快最直接的方法之一，需要说明的是上传文件操作本身是没有问题的，问题在于文件上传到服务器后，服务器怎么处理和解释文件。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-05T14:13:51.012Z">
-<meta property="article:modified_time" content="2017-07-28T03:51:08.000Z">
+<meta property="article:published_time" content="2021-04-22T11:00:13.000Z">
+<meta property="article:modified_time" content="2021-04-22T12:07:32.130Z">
 <meta property="article:author" content="小zou">
+<meta property="article:tag" content="-- web -- CTF">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="小zou的博客" type="application/atom+xml">
@@ -187,49 +188,124 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-文件上传漏洞" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      文件上传漏洞
+    </h1>
+  
+
+        
+        
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+
+<a href="/2021/04/22/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
+  	<time datetime="2021-04-22T11:00:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-22</time>
+</a>
+
+<!--以下是添加的-->
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">1.3k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">4分</span>
+      </span>
+    </span>
+</div>
+
+          
+        <!-- 添加完成 -->
+
+
+   <!-- 添加代码 -->
+    
+        <span class="archive-article-date">
+            本篇阅读数  <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+
+
+<!--以上是添加的-->
+
+        
+
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>myReader</title>
-<style>
-*{
-margin: 0;
-padding: 0;
-}
+        <p>​        文件上传漏洞是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。常见场景是web服务器允许用户上传图片或者普通文本文件保存，而用户绕过上传机制上传恶意代码并执行从而控制服务器。显然这种漏洞是getshell最快最直接的方法之一，需要说明的是上传文件操作本身是没有问题的，问题在于文件上传到服务器后，服务器怎么处理和解释文件。</p>
+<span id="more"></span>
 
-body{
-background: #eee;
-overflow-x : hidden;
-overflow-y : hidden;
-}
 
-#container{
-width: 600px;
-height: 400px;
-background: #eee;
-position: relative;
-}
-.tag{
-position: absolute;
-}
-</style>
-</head>
-<body>
-<button>点击变化布局</button>
-<div id="container"></div>
-<script type="text/javascript" src="js/tagConfig.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
 
-</body>
-</html>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><p>​       一般通过JavaScript代码检测上传文件的后缀名是否合法，或者通过白名单和黑名单进行检索</p>
+<p>​    绕过方法:<br>​            1.直接禁用Javascript实现绕过。<br>​            2.使用Burpsuite抓包我们的请求，更改文件类型为它需要的类型，即可绕过。</p>
+<h3 id="服务端检测"><a href="#服务端检测" class="headerlink" title="服务端检测"></a>服务端检测</h3><p>​       一般通过MINE类型检测</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mine类型是描述消息内容类型的因特网标准</span><br><span class="line">常见的有：</span><br><span class="line">text&#x2F;html （HTML文档）</span><br><span class="line">image&#x2F;gif （gif图像）</span><br><span class="line">text&#x2F;plain（纯文本）</span><br><span class="line">image&#x2F;png （png图像）</span><br><span class="line">application&#x2F;xml（xml）</span><br><span class="line">application&#x2F;msword （word文档）</span><br></pre></td></tr></table></figure>
+
+<p>​      绕过：用Burpsuite抓到请求包，更改Content-Type为允许的类型即可</p>
+<h3 id="黑名单"><a href="#黑名单" class="headerlink" title="黑名单"></a>黑名单</h3><p>​       将不允许上传的类型放入黑名单中，然后在上传时，进行比对，出现黑名单中的类型，即上传失败</p>
+<p>​       绕过方法：1：我们可以尝试寻找他没有禁止的类型(包括大小写和拓展名)</p>
+<p>​                                   如：php3       php4       php5        phtml</p>
+<p>​                        </p>
+<p>​                         2：可以使用%00截断，在它禁止的类型后添加%00，再加其他符号</p>
+<p>​                                  在PHP中%00后面的符号不会被解析</p>
+<h3 id="白名单"><a href="#白名单" class="headerlink" title="白名单"></a>白名单</h3><p>​        只允许上传指定后缀的文件，我们可以利用操作系统的特性来绕过。<br>​               例如：上传文件名为phpinfo.php(空格)<br>​                          我们可以上传phpinfo.php(.)<br>​                          且最后生成文件时，字符会被自动去除。</p>
+<h3 id="文件加载检测"><a href="#文件加载检测" class="headerlink" title="文件加载检测"></a>文件加载检测</h3><p>​            一般是调用API或函数去进行文件加载测试，例如图像渲染测试，当测试结果正常的时候才允许上传</p>
+<p>​                       1、一次渲染（代码注入）</p>
+<p>​                       2、二次渲染</p>
+<p>​           绕过方法：一般需要在正常的文件中插入木马代码了，例如图像，那么插入的代码一般会放在图像的注释区，因此不会影响图像正常渲染绕过这种检测，此时可以使用工具（称为插马器）来进行插入，例如edjpgcom，或者直接用copy命令来合成也可以。  当然这种检测不一定能够完全绕过</p>
+<h3 id="WAF校验"><a href="#WAF校验" class="headerlink" title="WAF校验"></a>WAF校验</h3><p>​           一般是使用不同的WAF产品来进行过滤，通常是独立与服务程序的一段中间程序或者硬件</p>
+<h3 id="文件解析漏洞"><a href="#文件解析漏洞" class="headerlink" title="文件解析漏洞"></a>文件解析漏洞</h3><p>​         这类漏洞是本身服务器的中间件产生的，例如apache，nginx都被爆出过存在解析漏洞，存在解析漏洞的话，上传的安全性几乎就完全失去了</p>
+<h4 id="IS5-x-6-x解析漏洞"><a href="#IS5-x-6-x解析漏洞" class="headerlink" title="IS5.x-6.x解析漏洞"></a>IS5.x-6.x解析漏洞</h4><p>使用iis5.x-6.x版本的服务器，大多为windows server 2003，网站比较古老，开发语句一般为asp；该解析漏洞也只能解析asp文件，而不能解析aspx文件。</p>
+<p>形式：<a target="_blank" rel="noopener" href="http://www.xxx.com/xx.asp/xx.jpg">www.xxx.com/xx.asp/xx.jpg</a> 原理: 服务器默认会把.asp，.asp目录下的文件都解析成asp文件。</p>
+<p>形式：<a target="_blank" rel="noopener" href="http://www.xxx.com/xx.asp;.jpg">www.xxx.com/xx.asp;.jpg</a> 原理：服务器默认不解析;号后面的内容，因此xx.asp;.jpg便被解析成asp文件了</p>
+<h4 id="apache解析漏洞"><a href="#apache解析漏洞" class="headerlink" title="apache解析漏洞"></a>apache解析漏洞</h4><p>Apache 解析文件的规则是从右到左开始判断解析,如果后缀名为不可识别文件解析,就再往左判断。比如apache就会把wooyun.php.qwe.asd解析成wooyun.php。</p>
+<p>漏洞形式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.xxxx.xxx.com/test.php.php123</span><br></pre></td></tr></table></figure>
+
+<p>其余配置问题导致漏洞</p>
+<ol>
+<li>如果在 Apache 的 conf 里有这样一行配置 AddHandler php5-script .php 这时只要文件名里包含.php 即使文件名是 test2.php.jpg 也会以 php 来执行。</li>
+<li>如果在 Apache 的 conf 里有这样一行配置 AddType application/x-httpd-php .jpg 即使扩展名是 jpg，一样能以 php 方式执行。</li>
+</ol>
+<p>修复方案</p>
+<ol>
+<li>apache配置文件，禁止.php.这样的文件执行，配置文件里面加入</li>
+<li>用伪静态能解决这个问题</li>
+</ol>
+<h3 id="nginx解析漏洞"><a href="#nginx解析漏洞" class="headerlink" title="nginx解析漏洞"></a>nginx解析漏洞</h3><p>​        Nginx默认是以CGI的方式支持PHP解析的，普遍的做法是在Nginx配置文件中通过正则匹配设置 SCRIPT_FILENAME。当访问 <a target="_blank" rel="noopener" href="http://www.xx.com/phpinfo.jpg/1.php%E8%BF%99%E4%B8%AAURL%E6%97%B6%EF%BC%8C">www.xx.com/phpinfo.jpg/1.php这个URL时，</a> $fastcgi_script_name会被设置为 “phpinfo.jpg/1.php”，然后构造成 SCRIPT_FILENAME传递给PHP CGI，但是PHP为什么会接受这样的参数，并将phpinfo.jpg作为PHP文件解析呢?这就要说到fix_pathinfo这个选项了。 如果开启了这个选项，那么就会触发在PHP中的如下逻辑：</p>
+<p>PHP会认为SCRIPTFILENAME是phpinfo.jpg，而1.php是PATHINFO，所以就会将phpinfo.jpg作为PHP文件来解析了</p>
+<p>漏洞形式如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">www.xxxx.com/UploadFiles/image/1.jpg/1.php</span><br><span class="line">www.xxxx.com/UploadFiles/image/1.jpg %00.php</span><br><span class="line">www.xxxx.com/UploadFiles/image/1.jpg/ %20.php</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>参考链接：<a target="_blank" rel="noopener" href="https://www.secpulse.com/archives/95987.html">https://www.secpulse.com/archives/95987.html</a></p>
+<p>​                  <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016012608">https://segmentfault.com/a/1190000016012608</a></p>
 
       
 
@@ -238,6 +314,17 @@ position: absolute;
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">-- web -- CTF</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -288,7 +375,7 @@ position: absolute;
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/assets/demo/my_news_reader/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/04/22/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -300,6 +387,25 @@ position: absolute;
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2021/05/03/BUU-WEB-%E5%88%B7%E9%A2%98%E4%B8%80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          BUUCTF-web刷题一
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/04/13/%E6%94%BB%E9%98%B2web%E6%96%B0%E6%89%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">攻防web新手</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -390,7 +496,7 @@ position: absolute;
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
