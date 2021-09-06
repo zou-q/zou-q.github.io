@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://example.com/2021/06/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%B8%89%E5%A4%A9/3.png">
 <meta property="og:image" content="http://example.com/2021/06/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%B8%89%E5%A4%A9/4.png">
 <meta property="article:published_time" content="2021-06-06T05:29:39.000Z">
-<meta property="article:modified_time" content="2021-09-06T08:47:19.342Z">
+<meta property="article:modified_time" content="2021-09-06T08:55:36.819Z">
 <meta property="article:author" content="小zou">
 <meta property="article:tag" content="--eNSP --网络">
 <meta name="twitter:card" content="summary">
@@ -225,7 +225,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">817字</span>
+        <span class="post-count">837字</span>
       </span>
     </span>
 
@@ -274,9 +274,8 @@
 <p>剩下的pc原理相同，不过网络二的网关设置为192.168.2.3(与一不同即可)</p>
 <p>当我们设置完成后，我们可以尝试ping,会发现相同网络内不可通，不同网络也不可通，这是因为，我们的路由(网关)还未设置，导致无法转发数据，因此接下来，路由如下设置</p>
 <p>先双击路由器</p>
-<p>1、接口配置IP地址<br>2、配置什么IP地址<br>G0/0/0：192.168.1.3 255.255.255.0<br><Huawei>system-view<br>[Huawei]interface g0/0/0<br>[Huawei-GigabitEthernet0/0/0]<br>[Huawei-GigabitEthernet0/0/0]ip address 192.168.1.3 255.255.255.0<br>G0/0/1:192.168.2.100 255.255.255.0<br>[Huawei-GigabitEthernet0/0/0]quit<br>[Huawei]<br>[Huawei]interface g0/0/1<br>[Huawei-GigabitEthernet0/0/1]ip address 192.168.2.100 255.255.255.0</Huawei></p>
-<p>主机对应的路由器接口地址是多少，网关地址就是多少</p>
-<p>[Huawei]display ip routing-table     查看配置信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1、接口配置IP地址</span><br><span class="line">2、配置什么IP地址</span><br><span class="line">G0&#x2F;0&#x2F;0：192.168.1.3 255.255.255.0</span><br><span class="line">&lt;Huawei&gt;system-view</span><br><span class="line">[Huawei]interface g0&#x2F;0&#x2F;0</span><br><span class="line">[Huawei-GigabitEthernet0&#x2F;0&#x2F;0]</span><br><span class="line">[Huawei-GigabitEthernet0&#x2F;0&#x2F;0]ip address 192.168.1.3 255.255.255.0</span><br><span class="line">G0&#x2F;0&#x2F;1:192.168.2.100 255.255.255.0</span><br><span class="line">[Huawei-GigabitEthernet0&#x2F;0&#x2F;0]quit</span><br><span class="line">[Huawei]</span><br><span class="line">[Huawei]interface g0&#x2F;0&#x2F;1	</span><br><span class="line">[Huawei-GigabitEthernet0&#x2F;0&#x2F;1]ip address 192.168.2.100 255.255.255.0</span><br><span class="line"></span><br><span class="line">主机对应的路由器接口地址是多少，网关地址就是多少</span><br><span class="line"></span><br><span class="line">[Huawei]display ip routing-table     查看配置信息</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2021/06/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%B8%89%E5%A4%A9/3.png"></p>
 <p>再次尝试ping，如下：</p>
 <p><img src="/2021/06/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%B8%89%E5%A4%A9/4.png"></p>
@@ -566,11 +565,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-web -CTF</a>
+                <a href="javascript:void(0)" class="js-tag color5">-CTF -web</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-CTF -web</a>
+                <a href="javascript:void(0)" class="js-tag color5">-web -CTF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -606,11 +605,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">--linux --FTP服务器</a>
+                <a href="javascript:void(0)" class="js-tag color3">-- 漏洞分析</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">-- 漏洞分析</a>
+                <a href="javascript:void(0)" class="js-tag color2">--linux --FTP服务器</a>
               </li>
              
               <li class="article-tag-list-item">

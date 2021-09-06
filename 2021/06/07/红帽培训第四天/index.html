@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://example.com/2021/06/07/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E5%9B%9B%E5%A4%A9/2.png">
 <meta property="og:image" content="http://example.com/2021/06/07/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E5%9B%9B%E5%A4%A9/3.png">
 <meta property="article:published_time" content="2021-06-07T08:00:52.000Z">
-<meta property="article:modified_time" content="2021-09-06T08:48:00.241Z">
+<meta property="article:modified_time" content="2021-09-06T08:55:14.861Z">
 <meta property="article:author" content="小zou">
 <meta property="article:tag" content="--eNSP --网络">
 <meta name="twitter:card" content="summary">
@@ -224,7 +224,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">907字</span>
+        <span class="post-count">952字</span>
       </span>
     </span>
 
@@ -270,23 +270,10 @@
 <p>首先我们需要先按照如图解，将网络拓朴图构建出来，这一步，还是简单的，咱们可以依葫芦画瓢，然后就是各个PC机的IP分配，都是咱们手动的分配上去。</p>
 <p>剩下的就是各个路由器的设置。</p>
 <p>第一步：路由器接口设置，如下：</p>
-<p>———–网络一和网络二—————<br><Huawei>system-view<br>[Huawei]sysname AR5<br>[AR5]interface GigabitEthernet 0/0/1<br>[AR5-GigabitEthernet0/0/1]ip address 172.16.1.1 24<br>[AR5]interface GigabitEthernet 0/0/0<br>[AR5-GigabitEthernet0/0/0]ip address 172.16.2.1 24</Huawei></p>
-<p>————网络三——————-<br>[AR7]interface GigabitEthernet 0/0/1<br>[AR7-GigabitEthernet0/0/1]ip address 192.168.1.1 24</p>
-<p>————网络四—————–<br>[AR8]interface GigabitEthernet 0/0/0<br>[AR8-GigabitEthernet0/0/0]ip address 10.1.1.1 24</p>
-<p>————网络五—————–<br>[AR9]interface GigabitEthernet 0/0/0<br>[AR9-GigabitEthernet0/0/0]ip address 10.1.2.1 24</p>
-<p>2、配置路由器之间的链路接口的IP地址<br>[AR5]int GigabitEthernet 0/0/2</p>
-<p>[AR5-GigabitEthernet0/0/2]ip address 100.1.1.1 24</p>
-<p>[AR7]interface GigabitEthernet 0/0/0<br>[AR7-GigabitEthernet0/0/0]ip address 100.1.1.2 24<br>[AR7]interface GigabitEthernet 0/0/2</p>
-<p>[AR7-GigabitEthernet0/0/2]ip address 100.1.2.1 24</p>
-<p>[AR8]interface GigabitEthernet 0/0/1<br>[AR8-GigabitEthernet0/0/1]ip address 100.1.2.2 24<br>[AR8]interface GigabitEthernet 0/0/2</p>
-<p>[AR8-GigabitEthernet0/0/2]ip address 100.1.3.1 24</p>
-<p>[AR9]interface GigabitEthernet 0/0/1<br>[AR9-GigabitEthernet0/0/1]ip address 100.1.3.2 24</p>
-<p>OSPF网络部分<br>[AR7]ospf 1 router-id 4.4.4.4    激活路由协议<br>[AR7-ospf-1]area 0<br>[AR7-ospf-1-area-0.0.0.0]network 192.168.1.0 0.0.0.255  将该网段接口加入到路由协议</p>
-<p>[AR7-ospf-1-area-0.0.0.0]network 100.1.2.0 0.0.0.255</p>
-<p>[AR8]ospf 1 router-id 2.2.2.2<br>[AR8-ospf-1]area 0<br>[AR8-ospf-1-area-0.0.0.0]network 100.1.2.0 0.0.0.255<br>[AR8-ospf-1]area 1<br>[AR8-ospf-1-area-0.0.0.1]network 10.1.1.0 0.0.0.255</p>
-<p>[AR8-ospf-1-area-0.0.0.1]network  100.1.3.0 0.0.0.255</p>
-<p>[AR9]ospf 1 router-id 3.3.3.3<br>[AR9-ospf-1]area 1<br>[AR9-ospf-1-area-0.0.0.1]network 100.1.3.0 0.0.0.255<br>[AR9-ospf-1-area-0.0.0.1]network 10.1.2.0 0.0.0.255</p>
-<p>RIP网络部分<br>[AR5]rip  激活RIP路由<br>[AR5-rip-1]version 2   设置版本2<br>[AR5-rip-1]undo summary   关闭自动汇总<br>[AR5-rip-1]network 172.16.0.0  将网段所在接口加入到RIP<br>[AR5-rip-1]network 100.0.0.0<br>[AR7]rip<br>[AR7-rip-1]version 2<br>[AR7-rip-1]undo summary<br>[AR7-rip-1]network 100.0.0.0<br>不同路由协议之间，不能直接交换路由信息<br>使用路由引入的方法<br>[AR7]ospf 1   进入路由协议<br>[AR7-ospf-1]import-route rip   引入RIP路由<br>[AR7]rip   进入路由协议<br>[AR7-rip-1]import-route ospf cost 1  引入OSPF路由</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">-----------网络一和网络二---------------</span><br><span class="line">&lt;Huawei&gt;system-view </span><br><span class="line">[Huawei]sysname AR5</span><br><span class="line">[AR5]interface GigabitEthernet 0&#x2F;0&#x2F;1</span><br><span class="line">[AR5-GigabitEthernet0&#x2F;0&#x2F;1]ip address 172.16.1.1 24</span><br><span class="line">[AR5]interface GigabitEthernet 0&#x2F;0&#x2F;0	</span><br><span class="line">[AR5-GigabitEthernet0&#x2F;0&#x2F;0]ip address 172.16.2.1 24</span><br><span class="line"></span><br><span class="line">------------网络三-------------------</span><br><span class="line">[AR7]interface GigabitEthernet 0&#x2F;0&#x2F;1	</span><br><span class="line">[AR7-GigabitEthernet0&#x2F;0&#x2F;1]ip address 192.168.1.1 24</span><br><span class="line"></span><br><span class="line">------------网络四-----------------</span><br><span class="line">[AR8]interface GigabitEthernet 0&#x2F;0&#x2F;0	</span><br><span class="line">[AR8-GigabitEthernet0&#x2F;0&#x2F;0]ip address 10.1.1.1 24</span><br><span class="line"></span><br><span class="line">------------网络五-----------------</span><br><span class="line">[AR9]interface GigabitEthernet 0&#x2F;0&#x2F;0	</span><br><span class="line">[AR9-GigabitEthernet0&#x2F;0&#x2F;0]ip address 10.1.2.1 24</span><br><span class="line"></span><br><span class="line">2、配置路由器之间的链路接口的IP地址</span><br><span class="line">[AR5]int GigabitEthernet 0&#x2F;0&#x2F;2</span><br><span class="line"></span><br><span class="line">[AR5-GigabitEthernet0&#x2F;0&#x2F;2]ip address 100.1.1.1 24</span><br><span class="line"></span><br><span class="line">[AR7]interface GigabitEthernet 0&#x2F;0&#x2F;0</span><br><span class="line">[AR7-GigabitEthernet0&#x2F;0&#x2F;0]ip address 100.1.1.2 24</span><br><span class="line">[AR7]interface GigabitEthernet 0&#x2F;0&#x2F;2</span><br><span class="line"></span><br><span class="line">[AR7-GigabitEthernet0&#x2F;0&#x2F;2]ip address 100.1.2.1 24</span><br><span class="line"></span><br><span class="line">[AR8]interface GigabitEthernet 0&#x2F;0&#x2F;1	</span><br><span class="line">[AR8-GigabitEthernet0&#x2F;0&#x2F;1]ip address 100.1.2.2 24</span><br><span class="line">[AR8]interface GigabitEthernet 0&#x2F;0&#x2F;2</span><br><span class="line"></span><br><span class="line">[AR8-GigabitEthernet0&#x2F;0&#x2F;2]ip address 100.1.3.1 24</span><br><span class="line"></span><br><span class="line">[AR9]interface GigabitEthernet 0&#x2F;0&#x2F;1	</span><br><span class="line">[AR9-GigabitEthernet0&#x2F;0&#x2F;1]ip address 100.1.3.2 24</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">OSPF网络部分	</span><br><span class="line">[AR7]ospf 1 router-id 4.4.4.4    激活路由协议</span><br><span class="line">[AR7-ospf-1]area 0</span><br><span class="line">[AR7-ospf-1-area-0.0.0.0]network 192.168.1.0 0.0.0.255  将该网段接口加入到路由协议</span><br><span class="line"></span><br><span class="line">[AR7-ospf-1-area-0.0.0.0]network 100.1.2.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">[AR8]ospf 1 router-id 2.2.2.2</span><br><span class="line">[AR8-ospf-1]area 0</span><br><span class="line">[AR8-ospf-1-area-0.0.0.0]network 100.1.2.0 0.0.0.255</span><br><span class="line">[AR8-ospf-1]area 1</span><br><span class="line">[AR8-ospf-1-area-0.0.0.1]network 10.1.1.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">[AR8-ospf-1-area-0.0.0.1]network  100.1.3.0 0.0.0.255</span><br><span class="line"></span><br><span class="line">[AR9]ospf 1 router-id 3.3.3.3</span><br><span class="line">[AR9-ospf-1]area 1</span><br><span class="line">[AR9-ospf-1-area-0.0.0.1]network 100.1.3.0 0.0.0.255</span><br><span class="line">[AR9-ospf-1-area-0.0.0.1]network 10.1.2.0 0.0.0.255</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">RIP网络部分</span><br><span class="line">[AR5]rip  激活RIP路由</span><br><span class="line">[AR5-rip-1]version 2   设置版本2</span><br><span class="line">[AR5-rip-1]undo summary   关闭自动汇总</span><br><span class="line">[AR5-rip-1]network 172.16.0.0  将网段所在接口加入到RIP</span><br><span class="line">[AR5-rip-1]network 100.0.0.0</span><br><span class="line">[AR7]rip</span><br><span class="line">[AR7-rip-1]version 2</span><br><span class="line">[AR7-rip-1]undo summary </span><br><span class="line">[AR7-rip-1]network 100.0.0.0</span><br><span class="line">不同路由协议之间，不能直接交换路由信息</span><br><span class="line">使用路由引入的方法</span><br><span class="line">[AR7]ospf 1   进入路由协议</span><br><span class="line">[AR7-ospf-1]import-route rip   引入RIP路由</span><br><span class="line">[AR7]rip   进入路由协议</span><br><span class="line">[AR7-rip-1]import-route ospf cost 1  引入OSPF路由</span><br></pre></td></tr></table></figure>
+
+
+
 <p>到这里我们实现了这个网络的搭建，成功连通</p>
 <p><img src="/2021/06/07/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E5%9B%9B%E5%A4%A9/2.png"></p>
 <p><img src="/2021/06/07/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E5%9B%9B%E5%A4%A9/3.png"></p>
@@ -575,11 +562,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-web -CTF</a>
+                <a href="javascript:void(0)" class="js-tag color5">-CTF -web</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-CTF -web</a>
+                <a href="javascript:void(0)" class="js-tag color5">-web -CTF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,11 +602,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">--linux --FTP服务器</a>
+                <a href="javascript:void(0)" class="js-tag color3">-- 漏洞分析</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">-- 漏洞分析</a>
+                <a href="javascript:void(0)" class="js-tag color2">--linux --FTP服务器</a>
               </li>
              
               <li class="article-tag-list-item">
