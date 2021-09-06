@@ -17,17 +17,26 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>红帽培训第五天 | 小zou的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="选择有时候比努力更重要">
+  <meta name="description" content="今天我们来学习实现拨号上网以及内外网交互的实现，网络结构图如下：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="红帽培训第五天">
 <meta property="og:url" content="http://example.com/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/index.html">
 <meta property="og:site_name" content="小zou的博客">
-<meta property="og:description" content="选择有时候比努力更重要">
+<meta property="og:description" content="今天我们来学习实现拨号上网以及内外网交互的实现，网络结构图如下：">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/1.png">
+<meta property="og:image" content="http://example.com/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/2.png">
+<meta property="og:image" content="http://example.com/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/3.png">
+<meta property="og:image" content="http://example.com/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/4.png">
+<meta property="og:image" content="http://example.com/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/5.png">
+<meta property="og:image" content="http://example.com/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/6.png">
+<meta property="og:image" content="http://example.com/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/7.png">
 <meta property="article:published_time" content="2021-09-06T08:02:17.000Z">
-<meta property="article:modified_time" content="2021-09-06T08:02:17.230Z">
+<meta property="article:modified_time" content="2021-09-06T12:54:35.907Z">
 <meta property="article:author" content="小zou">
+<meta property="article:tag" content="--eNSP --网络">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/1.png">
   
     <link rel="alternative" href="/atom.xml" title="小zou的博客" type="application/atom+xml">
   
@@ -219,7 +228,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
+        <span class="post-count">858字</span>
       </span>
     </span>
 
@@ -228,7 +237,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
+        <span class="post-count">3分</span>
       </span>
     </span>
 </div>
@@ -253,7 +262,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>今天我们来学习实现拨号上网以及内外网交互的实现，网络结构图如下：</p>
+<span id="more"></span>
+
+<p><img src="/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/1.png"></p>
+<p>第一步，我们先实现拨号上网，这一步，我们需要提供一块网卡(可以使用虚拟网卡)。但是我在这里为了方便，使用了本机自带的无线网卡，ensp上的云设备设置如下(使用网卡)</p>
+<p><img src="/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/2.png"></p>
+<p>然后我们对路由进行设置，如下：</p>
+<p><strong>第一步实验：验证PPPOE服务器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">添加虚拟网卡的方法：virtual box，VMware，Microsoft</span><br><span class="line">我的物理电脑（VM1）------&gt;（VM1和e0&#x2F;0&#x2F;0）&lt;-------ensp（G0&#x2F;0&#x2F;0）</span><br><span class="line">AAA(认证、授权、记录)服务器</span><br><span class="line">[ISP]aaa</span><br><span class="line">[ISP-aaa]local-user sunyu password cipher 123</span><br><span class="line">[ISP-aaa]local-user sunyu service-type ppp</span><br><span class="line">拨号地址池</span><br><span class="line">[ISP]ip pool sy</span><br><span class="line">[ISP-ip-pool-sy]network 202.1.1.0 mask 255.255.255.0</span><br><span class="line">拨号拨入设置</span><br><span class="line">[ISP]interface Virtual-Template 0  创建一个虚拟模板</span><br><span class="line">[ISP-Virtual-Template0]ppp authentication-mode chap  开启PPP的chap认证</span><br><span class="line">[ISP-Virtual-Template0]remote address pool sy 分配给拨号用户的地址</span><br><span class="line">[ISP-Virtual-Template0]ip address 202.1.1.1 24 接口地址</span><br><span class="line">调用物理接口</span><br><span class="line">[ISP]interface GigabitEthernet 0&#x2F;0&#x2F;0</span><br><span class="line">[ISP-GigabitEthernet0&#x2F;0&#x2F;0]pppoe-server bind virtual-template 0</span><br></pre></td></tr></table></figure>
+
+
+
+<p>当我们实现后，我们可以看到在进行拨号上网，此刻，我们可以进行第二步实验</p>
+<p><strong>第二步实验：组建公司内网</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">设置网关路由器</span><br><span class="line">[GW]interface GigabitEthernet 0&#x2F;0&#x2F;0	</span><br><span class="line">[GW-GigabitEthernet0&#x2F;0&#x2F;0]ip address 192.168.1.1 24</span><br><span class="line">开启DHCP功能</span><br><span class="line">[GW]dhcp enable</span><br><span class="line">[GW]interface GigabitEthernet 0&#x2F;0&#x2F;0</span><br><span class="line">[GW-GigabitEthernet0&#x2F;0&#x2F;0]dhcp select interface</span><br><span class="line">[GW-GigabitEthernet0&#x2F;0&#x2F;0]dhcp server dns-list 8.8.8.8</span><br><span class="line"></span><br><span class="line">当我们完成后，可以通过ipconfig查看是否成功，如下：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/3.png"></p>
+<p><strong>第三步实验：宽带拨号连接</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[GW]interface Dialer 0 创建拨号接口</span><br><span class="line">[GW-Dialer0]link-protocol ppp 封装PPP协议</span><br><span class="line">[GW-Dialer0]ppp chap user sunyu  拨号的账号</span><br><span class="line">[GW-Dialer0]ppp chap password cipher 123  拨号的密码（前面服务器AAA的账号密码）</span><br><span class="line">[GW-Dialer0]ip address ppp-negotiate 拨号获取地址通过PPP协商</span><br><span class="line">[GW-Dialer0]dialer user sunyu 调用拨号的账号</span><br><span class="line">[GW-Dialer0]dialer bundle 1 绑定接口1</span><br><span class="line">[GW]interface GigabitEthernet 0&#x2F;0&#x2F;1</span><br><span class="line">[GW-GigabitEthernet0&#x2F;0&#x2F;1]pppoe-client dial-bundle-number 1 绑定物理接口</span><br><span class="line">[GW]display ip interface brief  查看拨号是否获取地址</span><br></pre></td></tr></table></figure>
+
+<p>如下图，会查到我们的拨号地址202.1.1.254</p>
+<p><img src="/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/4.png"></p>
+<p><strong>第四步实验：内外网通信</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给外网添加一个FTP服务器测试网络连接用，地址段为100.1.1.0&#x2F;24</span><br><span class="line">[ISP]int g0&#x2F;0&#x2F;1	</span><br><span class="line">[ISP-GigabitEthernet0&#x2F;0&#x2F;1]ip address 100.1.1.1 24</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如下图：</p>
+<p><img src="/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/5.png"></p>
+<p>配置好FTP服务器地址，打开FTP的功能<br>NAT网络地址翻译（easy IP）</p>
+<p><img src="/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/6.png"></p>
+<p>接下来再对GW开启easy ip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[GW]acl 2000  创建访问控制列表</span><br><span class="line">[GW-acl-basic-2000]rule permit source 192.168.1.0 0.0.0.255  匹配IP地址</span><br><span class="line">设置地址转换</span><br><span class="line">[GW]interface Dialer 0   进入拨号接口</span><br><span class="line">[GW-Dialer0]nat outbound 2000  设置easy IP的转换</span><br><span class="line">设置默认路由</span><br><span class="line">[GW]ip route-static 0.0.0.0 0.0.0.0 Dialer 0 去往任意网络，需要从拨号接口发送出去</span><br></pre></td></tr></table></figure>
+
+<p>,最后我们可以在pc机上直接ping到ftp服务器，当然GW还可以登录ftp进行数据下载或上传</p>
+<p>如下图：</p>
+<p><img src="/2021/09/06/%E7%BA%A2%E5%B8%BD%E5%9F%B9%E8%AE%AD%E7%AC%AC%E4%BA%94%E5%A4%A9/7.png"></p>
+<p>至此我们的网络架构完成</p>
+<p>当然，至此我们五天的网络架构培训也告一段落，还是学到了很多东西，不错。</p>
+
       
 
       
@@ -261,6 +309,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">--eNSP --网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -518,11 +577,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-CTF -web</a>
+                <a href="javascript:void(0)" class="js-tag color5">-web -CTF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">-web -CTF</a>
+                <a href="javascript:void(0)" class="js-tag color5">-CTF -web</a>
               </li>
              
               <li class="article-tag-list-item">
